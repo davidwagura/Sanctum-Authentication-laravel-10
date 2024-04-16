@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('Auth:sanctum', ['expect' => ['login', 'register'] ]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('Auth:sanctum', ['except' => ['login', 'register'] ]);
+    // }
 
     public function login(Request $request)
     {
@@ -27,7 +27,7 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)) {
             $user = Auth::user();
             return response()->json([
-                $user => $user,
+                'user' => $user,
                 'authorization' => [
                     'token' => $user->createToken('ApiToken')->plainTextToken,
                     'type' => 'bearer',
